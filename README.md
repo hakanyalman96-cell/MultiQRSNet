@@ -19,6 +19,27 @@ All results in the paper were produced with one configuration:
 
 Seeds are fixed (42), but training on GPU and Apple-silicon (MPS) back-ends is not bit-wise deterministic. Two runs of the same configuration on the same folds gave 95.1% and 90.3% patient-level accuracy. **The prediction files in `predictions/` are therefore the reproducible record of the reported results.** Retraining will give similar but not identical numbers.
 
+## Repository contents
+
+```
+README.md
+reproduce_metrics.py          recompute every reported model metric from predictions/
+make_inference_example.py     forward pass of the reported architecture on a synthetic ECG
+requirements.txt
+LICENSE
+predictions/                  pseudonymised patient-level predictions and fold assignment
+scripts/                      training / evaluation scripts used for the paper
+  multiqrsnet_cv_raw.py           binary 5-fold CV (reported model)
+  multiqrsnet_ablation_metrics.py input-configuration analysis
+  multiqrsnet_external.py         locked-model external evaluation
+  multiqrsnet_cv_3class.py        exploratory three-class CV
+  multiqrsnet_figures.py          Grad-CAM examples
+  zheng_format.py                 prepares the public Zheng et al. database
+reporting/                    completed TRIPOD+AI and EHRA AI checklists
+```
+
+Trained weights are not distributed: training is not bit-wise deterministic, and the prediction files are the record of the reported results.
+
 ## Reproducing the reported metrics (no patient data needed)
 
 ```bash
