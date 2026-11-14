@@ -117,3 +117,17 @@ print("\n  Sub-site                n   model  reader A  reader B")
 for s in ["RVOT_septal", "RVOT_free_wall", "LCC", "RCC", "NCC", "LR_commissure", "AMC", "LV_summit", "subvalvular_LVOT"]:
     k = sub == s
     print(f"  {s:20s} {k.sum():4d}   {mc[k].sum():4d}   {ra[k].sum():6d}   {rb[k].sum():6d}")
+
+print("\n" + "=" * 78)
+print("Section 3.5 / Table 2: exploratory three-class task (0 = LVOT, 1 = RVOT, 2 = intramural)")
+import glob
+from sklearn.metrics import balanced_accuracy_score, f1_score, confusion_matrix
+for fn in sorted(glob.glob(P + "three_class_final_seed*.csv")):
+    r = list(csv.DictReader(open(fn)))
+    t = np.array([int(x["true"]) for x in r]); p = np.array([int(x["pred"]) for x in r])
+    lo, hi = boot_ci(p == t)
+    rec = {c: f"{(p[t == c] == c).sum()}/{(t == c).sum()}" for c in (1, 0, 2)}
+    print(f"  {fn.split('/')[-1]}: acc {(p == t).sum()}/{len(t)} = {(p == t).mean()*100:.1f}% (95% CI {lo:.1f}-{hi:.1f})  "
+          f"balanced {balanced_accuracy_score(t, p)*100:.1f}%  macro-F1 {f1_score(t, p, average='macro')*100:.1f}%  "
+          f"recall RVOT {rec[1]}, LVOT {rec[0]}, intramural {rec[2]}")
+    print("   confusion [LVOT, RVOT, intramural]:", confusion_matrix(t, p, labels=[0, 1, 2]).tolist())

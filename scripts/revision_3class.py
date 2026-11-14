@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-REVISION (final configuration: no MDI, no polarity inversion; --seed; saves patient-level CSV).
+REVISION (final configuration: 12 leads + derivatives, no timing feature, no polarity inversion; saves patient-level CSV).
 Three-class MultiQRSNet (RVOT / LVOT / intramural), patient-level 5-fold CV.
 Labels: 0=LVOT, 1=RVOT, 2=intramural.
 Reports: overall & balanced accuracy, per-class recall/precision, macro-F1,
@@ -125,7 +125,7 @@ def main():
     print(f"loaded: {len(Xr)} recordings, {len(set(groups))} patients | classes:",
           {int(c): int((y == c).sum()) for c in np.unique(y)}, flush=True)
 
-    print("building 24-channel inputs + MDI ...", flush=True)
+    print("building 24-channel inputs ...", flush=True)
     X24, M = build_inputs(Xr); M = np.ascontiguousarray(M[:, :0])  # MDI dropped
 
     sgkf = StratifiedGroupKFold(5, shuffle=True, random_state=SPLIT_SEED)
