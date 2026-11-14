@@ -36,6 +36,7 @@ predictions/                  original submission: pseudonymised predictions and
 predictions/revision/         revised manuscript: five-seed predictions, sensitivity analyses, readers
 scripts/                      training / evaluation scripts used for the paper
   revision_experiments.py         revision: binary CV, external evaluation, masking and PVC-window runs
+  revision_covariates.py          revision: single-segment reader comparison, covariate adjustment, sub-sites
   revision_3class.py              revision: three-class CV (final inputs)
   revision_shap.py                revision: out-of-fold SHAP (Fig. 3, Supplementary Fig. S2)
   diag_3class_cache.py            checks a three-class cache against the binary cache
@@ -70,7 +71,7 @@ python3 reproduce_revision.py
 | SHAP channel ranking (Fig. 3) | `shap_channel_ranking.csv` |
 | Exploratory three-class task, final configuration (n = 129; Section 3.5, Table 2): seed 42 69.0%, intramural recall 7/26; seed 2 69.8%, intramural recall 7/26 | `three_class_final_seed42.csv`, `three_class_final_seed2.csv` |
 
-Not reproducible from this repository: the adjustment for age, hypertension and diabetes (requires patient characteristics, available on request).
+Not reproducible from this repository: the adjustment for age, hypertension and diabetes (`revision_covariates.py`; requires patient characteristics, available on request).
 
 The three-class files come from a separately pseudonymised cache (`P0001`–`P0129`); these codes are not linked to the `P001`–`P103` codes of the binary files.
 
