@@ -69,7 +69,7 @@ python3 reproduce_revision.py
 | PVC-only 500-ms window, 91.7 ± 1.3% (CV) and 81.3 ± 1.2% (independent cohort) | `internal_cv_pvc_window500_5seeds.csv`, `independent_cohort_pvc_window500_5seeds.csv` |
 | Reader comparison and exact McNemar tests (Table 3, Supplementary Table S3); modality-matched re-reading; sub-site accuracy (Supplementary Table S5) | `readers_and_subsites.csv` |
 | SHAP channel ranking (Fig. 3) | `shap_channel_ranking.csv` |
-| Exploratory three-class task, final configuration (n = 129; Section 3.5, Table 2): seed 42 69.0%, intramural recall 7/26; seed 2 69.8%, intramural recall 7/26 | `three_class_final_seed42.csv`, `three_class_final_seed2.csv` |
+| Exploratory three-class task, final configuration (n = 129; Section 3.5, Table 2): seed 42 (reported) 72.9%, intramural recall 6/26; seed 2 69.8%, intramural recall 7/26 | `three_class_final_seed42.csv`, `three_class_final_seed2.csv` |
 
 Not reproducible from this repository: the adjustment for age, hypertension and diabetes (`revision_covariates.py`; requires patient characteristics, available on request).
 
